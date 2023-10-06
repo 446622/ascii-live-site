@@ -1,26 +1,27 @@
 let sketch = function(p) {
     let video;
     let ratio = 12;
-    let canvasAspectRatio = 1080 / 1920;
 
     p.setup = function() {
         p.createCanvas(p.windowWidth, p.windowHeight);
-        let videoHeight = p.height / ratio;
-        let videoWidth = videoHeight * canvasAspectRatio;
         video = p.createCapture(p.VIDEO);
-        video.size(videoWidth, videoHeight);
+        video.size(p.windowWidth, p.windowHeight);
         video.hide();
         p.noStroke();
-        p.textSize(ratio);
+        p.textSize(ratio);  // Puedes necesitar ajustar esto dependiendo del nuevo tamaño
         p.textAlign(p.LEFT, p.TOP);
     };
 
     p.draw = function() {
         p.background(0);
         p.push();
-        p.translate((p.width - video.width * ratio) / 2, (p.height - video.height * ratio) / 2);
+        p.translate((p.width - video.width) / 2, (p.height - video.height) / 2);  // Esto podría no ser necesario si el video ya llena toda la ventana
         tick();
         p.pop();
+    };
+
+    p.windowResized = function() {
+        p.resizeCanvas(p.windowWidth, p.windowHeight);
     };
 
     function inRange(n_, min, max) {
