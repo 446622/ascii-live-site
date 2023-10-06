@@ -1,6 +1,12 @@
+let miFuente;
+
 let sketch = function(p) {
     let video;
     let ratio = 12;
+
+    p.preload = function() {
+        miFuente = p.loadFont('https://446622.github.io/ascii-live-site/fonts/PPNeueMachina-InktrapRegular.ttf');
+    }
 
     p.setup = function() {
         video = p.createCapture(p.VIDEO);
@@ -9,6 +15,7 @@ let sketch = function(p) {
         video.hide();
         p.noStroke();
         p.fill(200);
+        p.textFont(miFuente);
         p.textSize(ratio);
         p.textAlign(p.LEFT, p.TOP);
     };
