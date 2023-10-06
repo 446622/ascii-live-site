@@ -29,8 +29,8 @@ let sketch = function(p) {
         return (n_ - min) * (n_ - max) <= 0;
     }
 
-    function pick(c_) {
-        let chrs = '0*§@.†ま0や66•++';
+    function pick(c_) {      
+        let chrs = '|0*.10/6+';
         let b = 25;
         for (let k = 0; k <= 255; k += b) {
             if (inRange(c_, k, k + b)) {
@@ -41,7 +41,7 @@ let sketch = function(p) {
     }
 
     function pickColor(bright) {
-        if (bright < 20) {
+        if (bright < 10) {
             return p.color(0);
         } else if (bright >= 30 && bright < 70) {
             return p.color(255);
