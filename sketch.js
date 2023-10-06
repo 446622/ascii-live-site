@@ -30,7 +30,7 @@ let sketch = function(p) {
     }
 
     function pick(c_) {
-        let chrs = '¶*§@.†ま¶や66•++';
+        let chrs = '0*§@.†ま0や66•++';
         let b = 25;
         for (let k = 0; k <= 255; k += b) {
             if (inRange(c_, k, k + b)) {
