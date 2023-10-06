@@ -3,25 +3,19 @@ let sketch = function(p) {
     let ratio = 12;
 
     p.setup = function() {
-        p.createCanvas(p.windowWidth, p.windowHeight);
         video = p.createCapture(p.VIDEO);
-        video.size(p.windowWidth, p.windowHeight);
+        p.createCanvas(p.windowWidth, p.windowHeight);
+        video.size(p.width / ratio, p.height / ratio);
         video.hide();
         p.noStroke();
-        p.textSize(ratio);  // Puedes necesitar ajustar esto dependiendo del nuevo tamaño
+        p.fill(200);
+        p.textSize(ratio);
         p.textAlign(p.LEFT, p.TOP);
     };
 
     p.draw = function() {
         p.background(0);
-        p.push();
-        p.translate((p.width - video.width) / 2, (p.height - video.height) / 2);  // Esto podría no ser necesario si el video ya llena toda la ventana
-        tick();
-        p.pop();
-    };
-
-    p.windowResized = function() {
-        p.resizeCanvas(p.windowWidth, p.windowHeight);
+        tk();
     };
 
     function inRange(n_, min, max) {
@@ -55,7 +49,7 @@ let sketch = function(p) {
         }
     }
 
-    function tick() {
+    function tk() {
         video.loadPixels();
         let i = 0;
         for (let y = 0; y < video.height; y++) {
@@ -69,6 +63,10 @@ let sketch = function(p) {
             }
         }
     }
+
+    p.windowResized = function() {
+        p.resizeCanvas(p.windowWidth, p.windowHeight);
+    };
 };
 
 let miP5 = new p5(sketch);
