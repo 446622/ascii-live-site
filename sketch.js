@@ -1,4 +1,8 @@
 let miFuente;
+let brilloSlider;
+let brilloModificador = .7;
+
+
 
 let sketch = function(p) {
     let video;
@@ -18,7 +22,14 @@ let sketch = function(p) {
         p.textFont(miFuente);
         p.textSize(ratio);
         p.textAlign(p.LEFT, p.TOP);
+        //brilloSlider = p.createSlider(0.1, 3.0, 1.0, 0.1); 
+        //brilloSlider.position(10, p.height + 10); // Posición del slider en la ventana
+        //brilloSlider.input(actualizarBrillo);
     };
+  
+  function actualizarBrillo() {
+    brilloModificador = brilloSlider.value();
+}
 
     p.draw = function() {
         p.background(0);
@@ -30,29 +41,29 @@ let sketch = function(p) {
     }
 
     function pick(c_) {      
-        let chrs = '|0*.10/6+';
-        let b = 25;
+        let chrs = '10*1 10/*+';
+        let b = 28;
         for (let k = 0; k <= 255; k += b) {
             if (inRange(c_, k, k + b)) {
                 return chrs[Math.floor(k / (255 / b))];
             }
         }
-        return 'A';
+        return '|';
     }
 
     function pickColor(bright) {
         if (bright < 10) {
             return p.color(0);
         } else if (bright >= 30 && bright < 70) {
-            return p.color(255);
+            return p.color(240, 254, 255);
         } else if (bright >= 70 && bright < 100) {
-            return p.color(209, 132, 250);
+            return p.color(203, 195, 240);
         } else if (bright >= 70 && bright < 150) {
-            return p.color(255);
+            return p.color(240, 254, 255);
         } else if (bright >= 70 && bright < 180) {
-            return p.color(255);
+            return p.color(240, 254, 255);
         } else {
-            return p.color(255);
+            return p.color(0);
         }
     }
 
@@ -61,7 +72,7 @@ let sketch = function(p) {
         let i = 0;
         for (let y = 0; y < video.height; y++) {
             for (let x = 0; x < video.width; x++) {
-                let brightness = (video.pixels[i++] + video.pixels[i++] + video.pixels[i++]) / 3;
+                let brightness = ((video.pixels[i++] + video.pixels[i++] + video.pixels[i++]) / 3) * brilloModificador;
                 let c = pick(brightness);
                 let colores = pickColor(brightness);
                 p.fill(colores);
